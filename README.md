@@ -31,7 +31,7 @@ Before diving in, make sure you have the following:
 
 - Python **>=3.10** (uv can manage this for you — see the setup guides), you MUST also verify what is the latest Python version in which Tensorflow and PyTorch are available.
 
-**For this examples I will be using Python 3.13, since it is currently the latest Python version with the latest stable version of TensorFlow (2.21) and PyTorch () available**.
+**For this examples I will be using Python 3.13, since it is currently the latest Python version with the latest stable version of TensorFlow (2.21) and PyTorch (2.6) available**.
 
 ## Repository Structure
 
