@@ -54,72 +54,38 @@ uv-pytorch-tensorflow-gpu/
 
 ## Quick Start
 
-1) Verify if you have you nvidia driver updated && CUDA version. You can run the following command to check if they are downloaded:
+Fortunatelly, we do not have to install CUDA on our PCs to use PyTorch and TensorFlow, since you can install them with their CUDA. But, in order to make them uv compatible, you will need to add a wrapper in your `~/bashrc` file. The following command adds this wrapper:
 
 ```bash
-# This command will return some GPU Stats
-# One of these is CUDA Version
-# If it does not appear, you will need to follow steps 2-4
-nvidia-smi
-```
-
-2) Find the correct repository for your Linux Distro in [developer.nvidia cuda downloads](https://developer.nvidia.com/cuda-downloads). In order to know your distro and version:
-
-```bash
-cat /etc/os-release
-uname -m # Architecture
-```
-
-3) Add the repo (recommended: network) to your system following the tutorial in their website.
-
-4) After adding the new repo, there is a huge chance that your system also provides a nvidia driver for your repo, causing a conflict. In order to resolve that, you will need to uninstall your current nvidia-driver (if downloaded) to install NVIDIA's.
-
-Here is a example on Fedora 43 KDE:
-
-```bash
-# Update for safety:
-sudo dnf update
-
-# Print all enabled repositories:
-sudo dnf repolist
-
-# Both this repos are conflicting, I will keep NVIDIA's:
-# rpmfusion-nonfree-nvidia-driver
-# cuda-fedora43-x86_64
-
-# Disable rpmfusion nvidia driver
-sudo dnf config-manager setopt rpmfusion-nonfree-nvidia-driver.enabled=0
-
-# Remove drivers from the deleted repo:
-sudo dnf remove xorg-x11-drv-nvidia nvidia-modprobe nvidia-persistenced nvidia-settings
-
-# Reinstall driver + Install Toolkit
-sudo dnf install cuda-toolkit nvidia-driver-cuda
-
-# Add to PATH:
-echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
-
-echo '# CUDA - carrega libs do venv ativo automaticamente
-if [ -n "$VIRTUAL_ENV" ]; then
-    export LD_LIBRARY_PATH=$(find $VIRTUAL_ENV/lib -path "*/nvidia/*/lib" -type d 2>/dev/null | tr "\n" ":")$LD_LIBRARY_PATH
-fi' >> ~/.bashrc
-source ~/.bashrc
+export '
+# Wrapper para uv run que configura LD_LIBRARY_PAT>
+uv() {
+    if [ "$1" = "run" ] && [ -f ".venv/bin/activat>
+        local nvidia_libs=$(find ".venv/lib" -path>
+        if [ -n "$nvidia_libs" ]; then
+            LD_LIBRARY_PATH="${nvidia_libs}${LD_LI>
+            return
+        fi
+    fi
+    command uv "$@"
+}' >> ~/.bashrc
 
 source ~/.bashrc
-
-# Update & Reboot system:
-sudo dnf update
-sudo reboot -h now
 ```
 
-5) To check if everything is ok now run the following commands. Both commands should print your GPU stats and the nvcc version.
+Now, they should be working on your terminal. However, if you are using the terminal in VSCode or another IDE you should configure you settings to run ~/.bashrc, you can do it in VSCode changing the following line to `settings.json`:
 
-```bash
-nvidia-smi
-nvcc --version
+```json
+"terminal.integrated.profiles.linux": {
+    // exemple for bash
+    "bash": {
+      "path": "bash",
+      "args": ["-i"],
+      // ...
+    },
+    // ...
+  },
 ```
-
-6) 
 
 ## License
 
