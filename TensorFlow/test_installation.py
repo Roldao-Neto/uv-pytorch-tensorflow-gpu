@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-print("\n\n\nTensorFlow version:", tf.__version__)
+print("\nTensorFlow version:", tf.__version__)
 
 print(f"Is TensorFlow built with CUDA support? {'Yes' if tf.test.is_built_with_cuda() else 'No'}")
 
