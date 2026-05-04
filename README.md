@@ -152,6 +152,14 @@ bash setupKernel.sh
 
 **(ATTENTION)**: you will need to run the bash script every time you switch to a new project. It needs to be run in the root of the project so it can update the PATH of your CUDA downloaded with TensorFlow
 
+To check if it worked, you can inspect the available jupyter kernels with the following command:
+
+```bash
+jupyter kernelspec list
+```
+
+If it prints a kernel named `uv-python` it worked.
+
 ## License
 
 MIT

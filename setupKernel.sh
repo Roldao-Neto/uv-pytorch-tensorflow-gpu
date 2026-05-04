@@ -6,7 +6,7 @@ cat > ~/.local/share/jupyter/kernels/uv-python/kernel.json << EOF
     "display_name": "Python (uv)",
     "language": "python",
     "env": {
-        "LD_LIBRARY_PATH": "${nvidia_libs}"
+        "LD_LIBRARY_PATH": "${nvidia_libs}",
         "TF_ENABLE_ONEDNN_OPTS": "0",
         "TF_CPP_MIN_LOG_LEVEL": "1"
     }
