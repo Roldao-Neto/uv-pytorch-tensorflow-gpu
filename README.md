@@ -22,8 +22,8 @@ Before diving in, make sure you have the following:
 
 **System software**:
 
-- Linux (Not tested on Windows)
-- Updated NVIDIA Driver — check with `nvidia-smi`
+- Linux
+- Updated NVIDIA Driver — check with the bash command: `nvidia-smi`
 
 **Python tooling**:
 
@@ -31,7 +31,7 @@ Before diving in, make sure you have the following:
 
 - Python **>=3.10** (uv can manage this for you — see the setup guides), you MUST also verify what is the latest Python version in which Tensorflow and PyTorch are available.
 
-**For this examples I will be using Python 3.13, since it is currently the latest Python version with the latest stable version of TensorFlow (2.21) and PyTorch (2.6) available**.
+**For this examples I will be using Python 3.13, since it is currently the latest Python version with the latest stable version of TensorFlow and PyTorch available**.
 
 ## Repository Structure
 
@@ -39,6 +39,9 @@ Before diving in, make sure you have the following:
 uv-pytorch-tensorflow-gpu/
 │
 ├── README.md                    ← You are here
+├── PyTorch
+│   ├── MNIST.ipynb
+│   └── test_installation.py
 ├── License
 ├── pyproject.toml
 ├── uv.lock
@@ -47,7 +50,9 @@ uv-pytorch-tensorflow-gpu/
 
 ## Quick Start
 
-<!-- TODO -->
+Looking in the uv [documentation for using PyTorch](https://docs.astral.sh/uv/guides/integration/pytorch/#installing-pytorch), you can see that only Linux have GPU supported whells in PyPi, which is one of the reasons this tutorial uses Linux as its base. If you want to insist on using another Operating System, I strongly recommend you look up for a tutorial to setup PyTorch (or even TensorFlow) using Docker Containers.
+
+The steps you previously did to setup TensorFlow will also be used in PyTorch.
 
 ## License
 

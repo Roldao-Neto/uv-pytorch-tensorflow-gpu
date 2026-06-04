@@ -4,4 +4,16 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10, <3.14"
-dependencies = []
+dependencies = [
+    "matplotlib>=3.10.9",
+    "scikit-learn>=1.7.2",
+    "seaborn>=0.13.2",
+    "torch>=2.11.0",
+    "torchvision>=0.26.0",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.2.0",
+    "jupyterlab>=4.5.7",
+]
