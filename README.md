@@ -72,7 +72,7 @@ npx degit Roldao-Neto/uv-pytorch-tensorflow-gpu#tensorflow my_project
 #### PyTorch Project
 
 ```bash
-npx degit Roldao-Neto/uv-pytorch-tensorflow-gpu#PyTorch my_project
+npx degit Roldao-Neto/uv-pytorch-tensorflow-gpu#pytorch my_project
 ```
 
 ### Regular Setup (.py files)
