@@ -38,6 +38,8 @@ Before continuing, make sure you have the following:
 
 ## Repository Structure
 
+**OBS:** uv files are exclusive (not present in the `main` branch) to the branches you are going to pull (pytorch or tensorflow) since they differ in Python version and libraries used.
+
 ```txt
 uv-pytorch-tensorflow-gpu/
 │
