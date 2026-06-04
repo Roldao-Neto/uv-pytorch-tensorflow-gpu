@@ -6,11 +6,14 @@
 
 Python packaging for GPU workloads has historically been painful (if you do not want to use Docker for some reason). CUDA-specific wheels, conflicting dependencies, and fragile `pip` incantations make reproducible environments hard to achieve.
 
-If you do want to use Docker (Recommended), check: **REPO UNDER BUILD**.
-
 `uv` is a really fast Python package manager written in Rust. It resolves environments in milliseconds, handles platform-specific wheels cleanly.
 
 This repo shows you how to wire `uv` together with NVIDIA GPU support for both major deep learning frameworks, and gives you working MNIST examples to verify everything runs correctly end to end.
+
+If you do want to use Docker (Recommended), you can find the Docker images in the following links. Otherwise, you can proceed with the following tutorial.
+
+- [PyTorch](https://hub.docker.com/r/pytorch/pytorch)
+- [TensorFlow](https://hub.docker.com/r/tensorflow/tensorflow)
 
 ## Prerequisites
 
@@ -23,15 +26,15 @@ Before continuing, make sure you have the following:
 ### **System software**
 
 - Linux
-- Updated NVIDIA Driver
+- Updated NVIDIA Driver — check with the bash command: `nvidia-smi`
 
 ### **Python tooling**
 
 - `uv` installed — if you haven't already check their [documentation](https://github.com/astral-sh/uv).
 
-- Python **>=3.10** (uv can manage this for you — see the setup guides), you MUST also verify what is the latest Python version in which Tensorflow and PyTorch are available.
+- Python **>=3.10** (uv can manage this for you — see the setup guides), you MUST also verify what is the latest Python version in which Tensorflow and/or PyTorch are available.
 
-**For this examples I will be using Python 3.12, since it is currently the latest Python version with the latest stable version of TensorFlow and PyTorch available**.
+**For this examples I will be using Python 3.12 for TensorFlow and Python 3.13 for PyTorch**.
 
 ## Repository Structure
 
@@ -68,12 +71,6 @@ npx degit Roldao-Neto/uv-pytorch-tensorflow-gpu#tensorflow my_project
 
 ```bash
 npx degit Roldao-Neto/uv-pytorch-tensorflow-gpu#PyTorch my_project
-```
-
-#### TensorFlow & PyTorch Project
-
-```bash
-npx degit Roldao-Neto/uv-pytorch-tensorflow-gpu#main my_project
 ```
 
 ### Regular Setup (.py files)
@@ -130,7 +127,7 @@ When you are working with DL, you regularly want to prototype and separate your 
 
 Therefore, it is recommended to learn and enable this tool in your DL projects. Here, I will present a quick tutorial on how to do that, but I strongly recommend you to read the full documentation of uv later in this link: [using jupyter within a project](https://docs.astral.sh/uv/guides/integration/jupyter/#using-jupyter-within-a-project)
 
-#### Option 1: Create a Jupyter Kernel
+#### Option 1: Create a Jupyter Kernel (Recommend using this option to TensorFlow only)
 
 Creating a `kernel` for our project enables the Jupyter Server to run in one environment. In order to do that, you will need to add `ipykernel` in your dependencies. You can do that with the following command:
 
