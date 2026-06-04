@@ -24,13 +24,6 @@ Before continuing, make sure you have the following:
 
 - Linux
 - Updated NVIDIA Driver
-- Cuda Toolkit drivers installed
-
-> Good news for you when installing the CUDA driver:
-
-TensorFlow and PyTorch, in their latest versions, usually support different versions of CUDA, but CUDA has forward compatibility, which means that a new version of CUDA usually runs older versions without a problem!
-
-**Recommendation:** Just install the newest CUDA version, check the **Quick_Start** section below to continue!
 
 ### **Python tooling**
 
@@ -38,7 +31,7 @@ TensorFlow and PyTorch, in their latest versions, usually support different vers
 
 - Python **>=3.10** (uv can manage this for you — see the setup guides), you MUST also verify what is the latest Python version in which Tensorflow and PyTorch are available.
 
-**For this examples I will be using Python 3.12, since it is currently the latest Python version with the latest stable version of TensorFlow (2.21) and PyTorch (2.6) available**.
+**For this examples I will be using Python 3.13, since it is currently the latest Python version with the latest stable version of TensorFlow and PyTorch available**.
 
 ## Repository Structure
 
@@ -85,11 +78,12 @@ npx degit Roldao-Neto/uv-pytorch-tensorflow-gpu#main my_project
 
 ### Regular Setup (.py files)
 
-Fortunately, we do not have to install CUDA on our PCs to use PyTorch and TensorFlow, since you can install them with their CUDA. But, in order to make them uv compatible, you will need to add a wrapper in your `~/bashrc` file. The following command adds this wrapper:
+Fortunately, we do not have to install CUDA on our PCs to use PyTorch and TensorFlow, since you can install them with their CUDA. But, in order to make them uv compatible (for .py files), you will need to add a wrapper in your `~/bashrc` file to set the `ENVIRONMENT VARIABLES`. 
+
+The following command adds this wrapper:
 
 ```bash
 export '
-# Wrapper para uv run que configura LD_LIBRARY_PATH>
 uv() {
     if [ "$1" = "run" ] && [ -f ".venv/bin/activate" ]; then
         local nvidia_libs=$(find ".venv/lib" -path "*/nvidia/*/lib" -type d 2>/dev/null | tr "\n" ":")
@@ -104,11 +98,13 @@ uv() {
 source ~/.bashrc
 ```
 
-Now, they should be working on your terminal. However, if you are using the terminal in VSCode or another IDE you should configure you settings to run ~/.bashrc, you can do it in VSCode changing the following line to `settings.json`:
+**If you are using another Terminal different from bash, such as `zsh`, you will need to save it to its configuration file instead of `.bashrc`.**
+
+Now, they should be working on your terminal. However, if you are using the terminal in VSCode or another IDE you should configure your settings to run ~/.bashrc, you can do it in VSCode changing the following line to `settings.json`:
 
 ```json
 "terminal.integrated.profiles.linux": {
-    // exemple for bash
+    // example for bash
     "bash": {
       "path": "bash",
       "args": ["-i"],
@@ -134,7 +130,9 @@ When you are working with DL, you regularly want to prototype and separate your 
 
 Therefore, it is recommended to learn and enable this tool in your DL projects. Here, I will present a quick tutorial on how to do that, but I strongly recommend you to read the full documentation of uv later in this link: [using jupyter within a project](https://docs.astral.sh/uv/guides/integration/jupyter/#using-jupyter-within-a-project)
 
-What we will do is creating a kernel for our project, which enables the Jupyter Server to run in one environment. In order to do that, you will need to add `ipykernel` in your dependencies. You can do that with the following command:
+#### Option 1: Create a Jupyter Kernel
+
+Creating a `kernel` for our project enables the Jupyter Server to run in one environment. In order to do that, you will need to add `ipykernel` in your dependencies. You can do that with the following command:
 
 ```bash
 uv add --dev ipykernel
@@ -159,6 +157,18 @@ jupyter kernelspec list
 ```
 
 If it prints a kernel named `uv-python` it worked.
+
+#### Option 2: Simply use the created `.venv` and add jupyter dependencies to it (DOES NOT WORK FOR TENSORFLOW!)
+
+This is the simplest and my personal favorite method to using Jupyter Notebooks, most common IDE's today have support to jupyter notebooks and have an option to select a kernel from a specific `venv` in your system.
+
+In VSCode, for example, when you create a `.ipynb` file, you can do the following steps:
+
+1) Run `uv add jupyter`
+2) Run `uv sync`
+3) Click Select a Kernel (In the top-right corner)
+4) Select the Kernel that shows the path of the `.venv` in you repository.
+5) Run you Jupyter Notebook Test
 
 ## License
 
